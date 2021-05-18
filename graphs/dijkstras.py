@@ -35,6 +35,26 @@ class Graph:
             print i, ' --> ', dist[i]
 
 
+    def dijkstras_queue(self, src):
+        dist = [sys.maxint]*self.V
+        dist[src] = 0
+
+        queue = []
+        queue.append(src)
+
+        while queue:
+            u = queue.pop(0)
+            for v in range(self.V):
+                if self.graph[u][v] > 0 and dist[v] > dist[u] + self.graph[u][v]:
+                    dist[v] = dist[u] + self.graph[u][v]
+                    queue.append(v)
+
+        for i in range(self.V):
+            print i, ' --> ', dist[i]
+
+
+
+
 if __name__=='__main__':
     g = Graph(9)
     g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
@@ -49,3 +69,5 @@ if __name__=='__main__':
             ];
 
     g.dijkstras(0);
+    print 'queue based dijkstras'
+    g.dijkstras_queue(0);
